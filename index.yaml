@@ -47,6 +47,16 @@ entries:
     version: 9.10.4
   datadog-appmesh:
   - apiVersion: v2
+    appVersion: 0.0.2
+    created: "2021-08-19T06:39:47.015532193Z"
+    description: A DataDog AppMesh ConfigMap Helm chart for Kubernetes
+    digest: cc21770e864d9f05e58dbf10ce24254f7ded2935042f45f19f9f5c5e1d34bc14
+    name: datadog-appmesh
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/datadog-appmesh-0.0.2/datadog-appmesh-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.0.1
     created: "2021-08-19T06:05:41.176796819Z"
     description: A DataDog AppMesh ConfigMap Helm chart for Kubernetes
@@ -56,4 +66,4 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/datadog-appmesh-0.0.1/datadog-appmesh-0.0.1.tgz
     version: 0.0.1
-generated: "2021-08-19T06:05:41.176810819Z"
+generated: "2021-08-19T06:39:47.015540094Z"
