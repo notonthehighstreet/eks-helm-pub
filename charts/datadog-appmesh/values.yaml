@@ -1,0 +1,24 @@
+# Default values for datadog-appmesh.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: ""
+fullnameOverride: ""
+
+datadog:
+  appmesh:
+    name: "datadog-config" # datadog.appmesh.name -- Name of datadog appmesh configmap
+    # datadog.appmesh.tags -- List of static tags to attach to datadog appmesh configmap.
+    tags: []
+    #   - "<KEY_1>:<VALUE_1>"
+    #   - "<KEY_2>:<VALUE_2>"
+    #   # Example - cluster:eks-appmesh
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""

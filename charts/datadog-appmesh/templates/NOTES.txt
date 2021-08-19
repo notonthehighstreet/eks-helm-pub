@@ -1,0 +1,6 @@
+ConfigMap deployed:
+
+Namespace: {{ .Release.Namespace }}
+ConfigMap Name: {{ .Values.datadog.appmesh.name }}
+Tags: {{ .Values.datadog.appmesh.tags | toYaml }}
+

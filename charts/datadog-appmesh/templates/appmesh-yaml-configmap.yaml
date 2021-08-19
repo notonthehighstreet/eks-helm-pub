@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.datadog.appmesh.name }}
+  labels:
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app: {{ template "datadog-appmesh.fullname" . }}
+data:
+  envoy: |-
+    ad_identifiers:
+      - aws-appmesh-envoy
+    init_config:
+      instances:
+        - stats_url: http://%%host%%:9901/stats
+          {{- with .Values.datadog.appmesh.tags }}
+          tags:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}

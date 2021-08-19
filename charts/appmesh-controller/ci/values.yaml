@@ -1,0 +1,9 @@
+# CI testing values for appmesh-controller
+
+# This is a dummy account for CI test. Not a valid account ID
+accountId: 123456789
+region: us-west-2
+image:
+  repository: chinmay5j/appmesh-controller
+  tag: v1.4.0
+  pullPolicy: IfNotPresent
