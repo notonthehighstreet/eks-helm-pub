@@ -2,6 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ .Values.datadog.appmesh.name }}
+  namespace: {{ .Release.Namespace }}
   labels:
     heritage: {{ .Release.Service }}
     release: {{ .Release.Name }}
