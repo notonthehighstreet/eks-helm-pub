@@ -1,0 +1,22 @@
+{{- if .Values.securityGroup.create -}}
+apiVersion: vpcresources.k8s.aws/v1beta1
+kind: SecurityGroupPolicy
+metadata:
+  name: {{ template "backend-example.securityGroupName" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "backend-example.labels" . | nindent 4 }}
+    app: {{ template "backend-example.name" . }}
+    chart: {{ template "backend-example.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  podSelector: 
+    matchLabels:
+      role: {{ include "backend-example.serviceAccountName" . }}
+  securityGroups:
+    {{- with .Values.securityGroup.groupIds }}
+    groupIds:
+      {{- toYaml . | nindent 6 }}
+    {{- end }}  
+{{- end -}}

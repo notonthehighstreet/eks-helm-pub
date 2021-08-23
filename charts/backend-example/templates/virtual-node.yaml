@@ -1,0 +1,31 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualNode
+metadata:
+  name: {{ template "backend-example.fullname" . }}
+  labels:
+    {{- include "backend-example.labels" . | nindent 4 }}
+    app: {{ template "backend-example.name" . }}
+    chart: {{ template "backend-example.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ template "backend-example.name" . }}
+      release: {{ .Release.Name }}
+  listeners:
+  - portMapping:
+      port: {{ .Values.deployment.containerPort }}
+      protocol: http  
+    {{- if .Values.appMesh.backendVirtualServices }}
+    {{ toYaml .Values.appMesh.healthCheck }}
+    {{- end }}
+  backends:
+    {{- range $key, $value := .Values.backend.envAddresses }}
+    - virtualService:
+        virtualServiceRef:
+          name: {{ $value }}
+    {{- end }}
+  serviceDiscovery:
+    dns:
+      hostname: {{ template "backend-example.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local

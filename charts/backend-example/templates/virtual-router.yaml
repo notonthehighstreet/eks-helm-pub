@@ -1,0 +1,26 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualRouter
+metadata:
+  name: {{ template "backend-example.fullname" . }}
+  labels:
+    app: {{ template "backend-example.name" . }}
+    chart: {{ template "backend-example.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  listeners:
+    - portMapping:
+        port: {{ .Values.service.port }}
+        protocol: {{ .Values.appMesh.vRouterListenerProtocol }}
+  routes:
+    - name: {{ template "backend-example.fullname" . }}
+      httpRoute:
+        match:
+          prefix: /
+        action:
+          weightedTargets:
+          {{- range required "At least one target VirtualNode has to be specified" .Values.appMesh.targets }}
+            - virtualNodeRef:
+                name: {{ .vNodeName }}
+              weight: {{ .weight }}
+          {{- end }}

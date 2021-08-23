@@ -1,0 +1,15 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualService
+metadata:
+  name: {{ template "backend-example.fullname" . }}
+  labels:
+    app: {{ template "backend-example.name" . }}
+    chart: {{ template "backend-example.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  awsName: {{ template "backend-example.fullname" . }}.{{ .Release.Namespace }}.svc.cluster.local
+  provider:
+    virtualRouter:
+      virtualRouterRef:
+        name: {{ template "backend-example.fullname" . }}

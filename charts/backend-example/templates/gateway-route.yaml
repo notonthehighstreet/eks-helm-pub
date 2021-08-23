@@ -1,0 +1,22 @@
+{{- if .Values.appMesh.enableExternalTraffic -}}
+{{- $fullName := include "backend-example.fullname" . -}}
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: GatewayRoute
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "backend-example.labels" . | nindent 4 }}
+    app: {{ template "backend-example.name" . }}
+    chart: {{ template "backend-example.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  httpRoute:
+    match:
+      prefix: {{ .Values.appMesh.gatewayRouteMatchPrefix | default (printf "/%s" $fullName) }}
+    action:
+      target:
+        virtualService:
+          virtualServiceRef:
+            name: {{ $fullName }}
+{{- end -}}
