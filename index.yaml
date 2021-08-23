@@ -21,6 +21,17 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/appmesh-controller-1.4.0/appmesh-controller-1.4.0.tgz
     version: 1.4.0
+  backend-example:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-08-23T12:28:43.985933914Z"
+    description: Backend Example Service Helm Deployment
+    digest: 2915f56b78101dddb2262210d630972ceaf76222f87144f12bda7a1ddeb6eb35
+    name: backend-example
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/backend-example-0.0.1/backend-example-0.0.1.tgz
+    version: 0.0.1
   cluster-autoscaler:
   - apiVersion: v2
     appVersion: 1.21.0
@@ -66,4 +77,4 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/datadog-appmesh-0.0.1/datadog-appmesh-0.0.1.tgz
     version: 0.0.1
-generated: "2021-08-19T06:39:47.015540094Z"
+generated: "2021-08-23T12:28:43.985945514Z"
