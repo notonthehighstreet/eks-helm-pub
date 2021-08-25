@@ -15,7 +15,8 @@ spec:
     matchLabels:
       role: {{ include "backend-example.serviceAccountName" . }}
   securityGroups:
-    {{- with .Values.securityGroup.groupIds }}
-    groupIds: {{- toYaml . | nindent 6 }}
-    {{- end }}  
+    groupIds: 
+      {{- range .Values.securityGroup.groupIds }}
+      -  {{ . }}
+      {{- end }}  
 {{- end -}}
