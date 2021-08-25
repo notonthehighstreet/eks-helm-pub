@@ -1,0 +1,8 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: Mesh
+metadata:
+  name: {{ .Values.appMesh.name }}
+spec:
+  namespaceSelector:
+    matchLabels:
+      mesh: {{ .Values.appMesh.name }}

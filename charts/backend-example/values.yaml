@@ -24,6 +24,7 @@ backend:
     ServiceName: ""
 
 appMesh:
+  name: # e.g test-mesh
   enableExternalTraffic: false
   vRouterListenerProtocol: http
   gatewayRouteMatchPrefix: # Supply override here, otherwise it's "/service-name"
