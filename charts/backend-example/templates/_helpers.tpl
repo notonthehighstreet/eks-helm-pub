@@ -80,5 +80,5 @@ Defines a "function" converting a backend service address into a URL
 {{- define "backendUrl" -}}
 {{- $backendAddress := get . "backendAddress" -}}
 {{- $namespace := get . "namespace" -}}
-{{- printf "http://%s.%s/" $backendAddress .Values.deployment.dnsDomain -}}
+{{- printf "http://%s.%s.svc.cluster.local/" $backendAddress $namespace -}}
 {{- end -}}
