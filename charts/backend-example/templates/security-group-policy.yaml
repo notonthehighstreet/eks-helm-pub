@@ -16,7 +16,6 @@ spec:
       role: {{ include "backend-example.serviceAccountName" . }}
   securityGroups:
     {{- with .Values.securityGroup.groupIds }}
-    groupIds:
-      {{- toYaml . | nindent 6 }}
+    groupIds: {{- toYaml . | nindent 6 }}
     {{- end }}  
 {{- end -}}

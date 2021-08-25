@@ -2,6 +2,7 @@ apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualRouter
 metadata:
   name: {{ template "backend-example.fullname" . }}
+  namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "backend-example.name" . }}
     chart: {{ template "backend-example.chart" . }}
@@ -13,7 +14,7 @@ spec:
         port: {{ .Values.service.port }}
         protocol: {{ .Values.appMesh.vRouterListenerProtocol }}
   routes:
-    - name: {{ template "backend-example.fullname" . }}
+    - name: {{ template "backend-example.fullname" . }}-route
       httpRoute:
         match:
           prefix: /

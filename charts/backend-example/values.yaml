@@ -2,7 +2,6 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 #
-
 replicaCount: 1
 
 # aws config
@@ -13,14 +12,16 @@ image:
   repository: "" #repo with image
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: latest
+  tag: "" # e.g latest
 
 deployment:
   containerPort: 8080
+  dnsDomain: "" # e.g svc.cluster.local
 
 backend:
   envAddresses: # These entries will be turned into environment variables e.g: 
     # Settings_ServiceBaseUrl: http://green.backend.svc.cluster.local/
+    ServiceName: ""
 
 appMesh:
   enableExternalTraffic: false
@@ -28,8 +29,8 @@ appMesh:
   gatewayRouteMatchPrefix: # Supply override here, otherwise it's "/service-name"
 
   targets:  # Uncomment snippet below to set route(s) to your existing back-end app Virtual Node
-    - vNodeName: backend-example
-      weight: 10
+    - vNodeName: ""
+      weight: 100
 
   healthCheck:
     healthyThreshold: 2
@@ -41,8 +42,7 @@ appMesh:
 
 securityGroup:
   create: false
-  name: #"backend-example"
-  create: false
+  name: "" #backend-example
   groupIds: [] # A list of security group ids to map to
     # - <sg-abc123>
 
@@ -81,8 +81,6 @@ service:
   port: 80
   portName: http
   targetPort: http
-  selectorLabels: # required lable(s) shared by application pods of different versions
-    app: backend-example # chart-name-of-the-application
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
