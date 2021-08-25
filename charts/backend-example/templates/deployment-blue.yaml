@@ -6,7 +6,6 @@ metadata:
     {{- include "backend-example.labels" . | nindent 4 }}
     app: {{ template "backend-example.name" . }}
     chart: {{ template "backend-example.chart" . }}
-    draft: {{ .Values.draft | default "draft-app" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
     version: blue
@@ -30,6 +29,7 @@ spec:
         {{- include "backend-example.selectorLabels" . | nindent 8 }}
         app: {{ template "backend-example.name" . }}
         release: {{ .Release.Name }}
+        version: blue
         {{- if .Values.securityGroup.create -}}
         role: {{ include "backend-example.serviceAccountName" . }}
         {{- end }}
