@@ -1,3 +1,4 @@
+{{- if .Values.appMesh.create -}}
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: Mesh
 metadata:
@@ -6,3 +7,4 @@ spec:
   namespaceSelector:
     matchLabels:
       mesh: {{ .Values.appMesh.name }}
+{{- end -}}

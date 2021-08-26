@@ -24,6 +24,7 @@ backend:
     ServiceName: ""
 
 appMesh:
+  create: false
   name: # e.g test-mesh
   enableExternalTraffic: false
   vRouterListenerProtocol: http
