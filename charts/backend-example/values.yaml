@@ -28,10 +28,17 @@ appMesh:
   enableExternalTraffic: false
   vRouterListenerProtocol: http
   gatewayRouteMatchPrefix: # Supply override here, otherwise it's "/service-name"
-
   targets:  # Uncomment snippet below to set route(s) to your existing back-end app Virtual Node
     - vNodeName: ""
       weight: 100
+  gateway:
+    create: true
+    name: # The name of the appmesh gateway
+    port: 8088
+    lbType: nlb
+    prefix: "/"
+  envoy:
+    image: "public.ecr.aws/appmesh/aws-appmesh-envoy:v1.19.0.0-prod"
 
   healthCheck:
     healthyThreshold: 2
@@ -40,6 +47,12 @@ appMesh:
     protocol: http
     timeoutMillis: 2000
     unhealthyThreshold: 2
+
+rbac:
+  # rbac.create: `true` if rbac resources should be created
+  create: true
+  # rbac.pspEnabled: `true` if PodSecurityPolicy resources should be created
+  pspEnabled: false
 
 securityGroup:
   create: false
@@ -107,3 +120,10 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+## Priorities Expander
+expanderPriorities: {}
+
+extraArgs:
+  logtostderr: true
+  stderrthreshold: info

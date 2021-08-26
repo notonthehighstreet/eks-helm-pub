@@ -1,0 +1,22 @@
+{{- if .Values.appMesh.gateway.create -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appMesh.gateway.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.appMesh.gateway.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appMesh.gateway.name }}
+    spec:
+      containers:
+        - name: envoy
+          image: {{ .Values.appMesh.envoy.image }}
+          ports:
+            - containerPort: {{ .Values.appMesh.gateway.port }}
+{{- end -}}

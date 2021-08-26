@@ -1,0 +1,16 @@
+{{- if .Values.appMesh.gateway.create -}}
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: GatewayRoute
+metadata:
+  name: {{ .Values.appMesh.gateway.name }}-route
+  namespace: {{ .Release.Namespace }}
+spec:
+  httpRoute:
+    match:
+      prefix: {{ .Values.appMesh.gateway.prefix }}
+    action:
+      target:
+        virtualService:
+          virtualServiceRef:
+            name: {{ template "backend-example.fullname" . }}
+{{- end -}}

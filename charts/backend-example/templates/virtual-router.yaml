@@ -17,7 +17,7 @@ spec:
     - name: {{ template "backend-example.fullname" . }}-route
       httpRoute:
         match:
-          prefix: /
+          prefix: {{ .Values.appMesh.gateway.prefix }}
         action:
           weightedTargets:
           {{- range required "At least one target VirtualNode has to be specified" .Values.appMesh.targets }}

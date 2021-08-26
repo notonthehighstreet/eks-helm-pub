@@ -2,11 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "backend-example.fullname" . }}-blue
+  namespace: {{ .Release.Namespace }}
   labels:
     {{- include "backend-example.labels" . | nindent 4 }}
     app: {{ template "backend-example.name" . }}
     chart: {{ template "backend-example.chart" . }}
-    release: {{ .Release.Name }}
+    release: {{ .Release.Name }}-{{ .Release.Version }}
     heritage: {{ .Release.Service }}
     version: blue
 spec:
@@ -17,8 +18,11 @@ spec:
     matchLabels:
       {{- include "backend-example.selectorLabels" . | nindent 6 }}
       app: {{ template "backend-example.name" . }}
-      release: {{ .Release.Name }}
+      release: {{ .Release.Name }}-{{ .Release.Version }}
       version: blue
+      {{- if .Values.securityGroup.create }}
+      role: {{ template "backend-example.serviceAccountName" . }}
+      {{- end }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -28,10 +32,10 @@ spec:
       labels:
         {{- include "backend-example.selectorLabels" . | nindent 8 }}
         app: {{ template "backend-example.name" . }}
-        release: {{ .Release.Name }}
+        release: {{ .Release.Name }}-{{ .Release.Version }}
         version: blue
-        {{- if .Values.securityGroup.create -}}
-        role: {{ include "backend-example.serviceAccountName" . }}
+        {{- if .Values.securityGroup.create }}
+        role: {{ template "backend-example.serviceAccountName" . }}
         {{- end }}
     spec:
       {{- with .Values.imagePullSecrets }}
@@ -63,6 +67,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
+        name: {{ .Release.Namespace }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.affinity }}

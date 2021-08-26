@@ -61,7 +61,6 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
-
 {{/*
 Create the name of the security group
 */}}
@@ -81,4 +80,12 @@ Defines a "function" converting a backend service address into a URL
 {{- $backendAddress := get . "backendAddress" -}}
 {{- $namespace := get . "namespace" -}}
 {{- printf "http://%s.%s.svc.cluster.local/" $backendAddress $namespace -}}
+{{- end -}}
+
+{{/*
+Return instance and name labels.
+*/}}
+{{- define "backend-example.instance-name" -}}
+app.kubernetes.io/instance: {{ .Release.Name | quote }}
+app.kubernetes.io/name: {{ include "backend-example.name" . | quote }}
 {{- end -}}
