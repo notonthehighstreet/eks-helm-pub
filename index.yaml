@@ -24,6 +24,16 @@ entries:
   backend-example:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2021-08-31T11:42:04.961492055Z"
+    description: Backend Example Service Helm Deployment
+    digest: 4dc527431e6171fe47fd927bd1f784a1ab8ae6c18ed8ed6692b80a3fe28be3f7
+    name: backend-example
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/backend-example-0.1.2/backend-example-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2021-08-26T14:21:36.348667833Z"
     description: Backend Example Service Helm Deployment
     digest: 92298799895db79c539d2e97d46219e750a916968679e01a92fbf5022076d782
@@ -177,4 +187,4 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/datadog-appmesh-0.0.1/datadog-appmesh-0.0.1.tgz
     version: 0.0.1
-generated: "2021-08-26T14:21:36.348724636Z"
+generated: "2021-08-31T11:42:04.961549756Z"
