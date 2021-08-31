@@ -2,7 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 #
-replicaCount: 1
+replicaCountBlue: 1
+replicaCountGreen: 1
 
 # aws config
 aws:
@@ -12,7 +13,8 @@ image:
   repository: "" #repo with image
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "" # e.g latest
+  tagBlue: "" # e.g latest
+  tagGreen: "" # e.g latest
 
 deployment:
   containerPort: 8080
