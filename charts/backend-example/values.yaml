@@ -26,7 +26,10 @@ backend:
     ServiceName: ""
 
 appMesh:
+  create: false
+  external: false
   name: # e.g test-mesh
+  arn: # The ARN of an existing mesh set external to true above
   enableExternalTraffic: false
   vRouterListenerProtocol: http
   gatewayRouteMatchPrefix: # Supply override here, otherwise it's "/service-name"
@@ -41,6 +44,8 @@ appMesh:
       prefix: "/"
   envoy:
     image: "public.ecr.aws/appmesh/aws-appmesh-envoy:v1.19.0.0-prod"
+  aws:
+    accountID: #If external provide an external accountID
 
   healthCheck:
     healthyThreshold: 2

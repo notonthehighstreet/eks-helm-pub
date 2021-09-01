@@ -1,0 +1,19 @@
+{{- if .Values.appMesh.create -}}
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: Mesh
+metadata:
+  name: {{ .Values.appMesh.name }}
+spec:
+  awsName: {{ .Values.appMesh.name }}
+  {{- if .Values.appMesh.external -}}
+  meshOwner: {{ .Values.appMesh.aws.accountID }}
+  {{- end }}
+  namespaceSelector:
+    matchLabels:
+      mesh: {{ .Values.appMesh.name }}
+
+{{- if .Values.appMesh.external -}}
+status:
+  meshARN: {{ .Values.appMesh.arn }}
+{{- end }}
+{{- end -}}
