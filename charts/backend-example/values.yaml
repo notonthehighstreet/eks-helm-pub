@@ -34,11 +34,12 @@ appMesh:
     - vNodeName: ""
       weight: 100
   gateway:
-    create: true
-    name: # The name of the appmesh gateway
-    port: 8088
-    lbType: nlb
-    prefix: "/"
+    route:
+      create: true
+      name: # The name of the appmesh gateway
+      port: 8088
+      lbType: nlb
+      prefix: "/"
   envoy:
     image: "public.ecr.aws/appmesh/aws-appmesh-envoy:v1.19.0.0-prod"
 
