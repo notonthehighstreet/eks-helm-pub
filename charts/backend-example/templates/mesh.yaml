@@ -14,6 +14,6 @@ spec:
 
 {{- if .Values.appMesh.external -}}
 status:
-  meshARN: {{ .Values.appMesh.arn }}
+  meshARN: {{ .Values.appMesh.aws.arn }}
 {{- end }}
 {{- end -}}
