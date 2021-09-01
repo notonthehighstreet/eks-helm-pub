@@ -2,7 +2,7 @@
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: GatewayRoute
 metadata:
-  name: {{ .Values.appMesh.gateway.route.name }}
+  name: {{ .Values.appMesh.gateway.name }}
   namespace: {{ .Release.Namespace }}
 spec:
   httpRoute:
