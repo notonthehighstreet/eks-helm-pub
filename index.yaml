@@ -24,6 +24,16 @@ entries:
   appmesh-core:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2021-09-02T09:51:26.785032927Z"
+    description: Appmesh Core Components (Mesh & Gateway) Helm Deployment
+    digest: 35623431a4415423936c1e45f46075ed6e1361127037352602a9e564b03f1f37
+    name: appmesh-core
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/appmesh-core-0.1.4/appmesh-core-0.1.4.tgz
+    version: 0.1.4
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2021-09-02T09:41:50.167624505Z"
     description: Appmesh Core Components (Mesh & Gateway) Helm Deployment
     digest: 7d62c754e9e38d35bdcd3b4af3a4bdfdf7889f1c6fd7c187c77d2f836cff1762
@@ -228,4 +238,4 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/datadog-appmesh-0.0.1/datadog-appmesh-0.0.1.tgz
     version: 0.0.1
-generated: "2021-09-02T09:41:50.167697707Z"
+generated: "2021-09-02T09:51:26.785101329Z"
