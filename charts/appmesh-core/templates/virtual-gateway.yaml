@@ -15,9 +15,7 @@ spec:
     - portMapping:
         port: {{ .Values.appMesh.gateway.port }}
         protocol: {{ .Values.appMesh.gateway.proto }}
-  {{- if .Values.appMesh.gateway.logging.enable -}}
   logging:
     accessLog: 
       file: {{ .Values.appMesh.gateway.logging.file }}
-  {{- end }}
 {{- end -}}
