@@ -1,0 +1,23 @@
+{{- if .Values.appMesh.gateway.create -}}
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualGateway
+metadata:
+  name: {{ .Values.appMesh.gateway.name }}
+spec:
+  awsName: {{ .Values.appMesh.gateway.name }}
+  namespaceSelector:
+    matchLabels:
+      gateway: {{ .Values.appMesh.gateway.name }}
+  podSelector:
+    matchLabels:
+      app: {{ .Values.appMesh.gateway.name }}
+  listeners:
+    - portMapping:
+        port: {{ .Values.appMesh.gateway.port }}
+        protocol: {{ .Values.appMesh.gateway.proto }}
+  {{- if .Values.appMesh.gateway.logging.enable -}}
+  logging:
+    accessLog: 
+      file: {{ .Values.appMesh.gateway.logging.file }}
+  {{- end }}
+{{- end -}}

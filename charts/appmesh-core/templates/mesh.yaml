@@ -5,6 +5,8 @@ metadata:
   name: {{ .Values.appMesh.name }}
 spec:
   awsName: {{ .Values.appMesh.name }}
+  egressFilter:
+    type: {{ .Values.appMesh.egressFilterType }}
   {{- if .Values.appMesh.external -}}
   meshOwner: {{ .Values.appMesh.aws.accountID }}
   {{- end }}
