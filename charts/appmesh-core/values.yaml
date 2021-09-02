@@ -1,4 +1,4 @@
-# Default values for backend-example.
+# Default values for appmesh-core.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 #
@@ -62,7 +62,7 @@ service:
 
 securityGroup:
   create: false
-  name: "" #backend-example
+  name: "" #appmesh-core
   groupIds: [] # A list of security group ids to map to
     # - <sg-abc123>
 
