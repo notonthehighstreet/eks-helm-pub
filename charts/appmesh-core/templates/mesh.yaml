@@ -7,7 +7,14 @@ spec:
   awsName: {{ .Values.appMesh.name }}
   egressFilter:
     type: {{ .Values.appMesh.egressFilterType }}
+    {{- if .Values.appMesh.external -}}
+    meshOwner: {{ .Values.appMesh.aws.accountID }}
+    {{- end }}
   namespaceSelector:
     matchLabels:
       mesh: {{ .Values.appMesh.name }}
+{{- if .Values.appMesh.external -}}
+status:
+  meshARN: {{ .Values.appMesh.aws.arn }}
+{{- end }}
 {{- end -}}
