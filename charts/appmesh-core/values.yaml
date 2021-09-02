@@ -38,6 +38,7 @@ appMesh:
       enable: false
       file: # The logfile to store 
   envoy:
+    name: envoy
     image: "public.ecr.aws/appmesh/aws-appmesh-envoy:v1.19.0.0-prod"
   aws:
     arn: # The ARN of an existing mesh set external to true above
