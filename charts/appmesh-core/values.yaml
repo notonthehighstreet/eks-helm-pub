@@ -29,12 +29,6 @@ appMesh:
   external: false
   name: # e.g test-mesh
   egressFilterType: "DROP_ALL"
-  enableExternalTraffic: false
-  vRouterListenerProtocol: http
-  gatewayRouteMatchPrefix: # Supply override here, otherwise it's "/service-name"
-  targets:  # Uncomment snippet below to set route(s) to your existing back-end app Virtual Node
-    - vNodeName: ""
-      weight: 100
   gateway:
     create: true
     name: # The name of the appmesh gateway
