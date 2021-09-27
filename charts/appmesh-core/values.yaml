@@ -49,8 +49,8 @@ appMesh:
     # https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
     externalTrafficPolicy: Cluster  # Choices: Cluster / Local. More info below
     # https://kubernetes.io/docs/concepts/services-networking/service/#external-traffic-policy
-    annotations:
-      service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    annotations: {}
+      # service.beta.kubernetes.io/aws-load-balancer-type: nlb # To enable nlb
 
   healthCheck:
     healthyThreshold: 2
