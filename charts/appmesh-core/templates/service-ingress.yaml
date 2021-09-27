@@ -4,12 +4,17 @@ kind: Service
 metadata:
   name: {{ .Values.appMesh.gateway.name }}
   namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "appmesh-core.labels" . | indent 4 }}
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: {{ .Values.appMesh.gateway.lbType }}
+    {{- range $key, $value := .Values.appMesh.service.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
 spec:
-  type: LoadBalancer
+  type: {{ .Values.appMesh.service.type }}
+  externalTrafficPolicy: {{ .Values.appMesh.service.externalTrafficPolicy }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.appMesh.service.port }}
       targetPort: {{ .Values.appMesh.gateway.port }}
       name: {{ .Values.appMesh.gateway.proto }}
   selector:
