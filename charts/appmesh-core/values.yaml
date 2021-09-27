@@ -43,6 +43,14 @@ appMesh:
   aws:
     arn: # The ARN of an existing mesh set external to true above
     accountID: # If external provide an external accountID
+  service:
+    port: 80
+    type: LoadBalancer  # Choices: ClusterIP / NodePort / LoadBalancer / ExternalName. More info below
+    # https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
+    externalTrafficPolicy: Cluster  # Choices: Cluster / Local. More info below
+    # https://kubernetes.io/docs/concepts/services-networking/service/#external-traffic-policy
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: nlb
 
   healthCheck:
     healthyThreshold: 2
@@ -58,14 +66,17 @@ rbac:
   # rbac.pspEnabled: `true` if PodSecurityPolicy resources should be created
   pspEnabled: false
 
-service:
-  port: 80
-
 securityGroup:
   create: false
   name: "" #appmesh-core
   groupIds: [] # A list of security group ids to map to
     # - <sg-abc123>
+
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 90
 
 imagePullSecrets: []
 nameOverride: ""
@@ -96,12 +107,6 @@ securityContext:
   # readOnlyRootFilesystem: true
   runAsNonRoot: true
   runAsUser: 1000
-
-service:
-  type: ClusterIP
-  port: 80
-  portName: http
-  targetPort: http
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
