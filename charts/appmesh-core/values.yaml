@@ -73,10 +73,11 @@ securityGroup:
     # - <sg-abc123>
 
 autoscaling:
-  enabled: true
+  enabled: false
   minReplicas: 1
   maxReplicas: 5
   targetCPUUtilizationPercentage: 90
+  # targetMemoryUtilizationPercentage: 80
 
 imagePullSecrets: []
 nameOverride: ""
