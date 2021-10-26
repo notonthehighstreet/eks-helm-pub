@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "eks-deploy.name" -}}
+{{- define "noths-deploy.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "eks-deploy.fullname" -}}
+{{- define "noths-deploy.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "eks-deploy.chart" -}}
+{{- define "noths-deploy.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "eks-deploy.labels" -}}
-helm.sh/chart: {{ include "eks-deploy.chart" . }}
-{{ include "eks-deploy.selectorLabels" . }}
+{{- define "noths-deploy.labels" -}}
+helm.sh/chart: {{ include "noths-deploy.chart" . }}
+{{ include "noths-deploy.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "eks-deploy.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "eks-deploy.name" . }}
+{{- define "noths-deploy.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "noths-deploy.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "eks-deploy.serviceAccountName" -}}
+{{- define "noths-deploy.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "eks-deploy.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "noths-deploy.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -64,9 +64,9 @@ Create the name of the service account to use
 {{/*
 Create the name of the security group
 */}}
-{{- define "eks-deploy.securityGroupName" -}}
+{{- define "noths-deploy.securityGroupName" -}}
 {{- if .Values.securityGroup.create }}
-{{- default (include "eks-deploy.fullname" .) .Values.securityGroup.name }}
+{{- default (include "noths-deploy.fullname" .) .Values.securityGroup.name }}
 {{- else }}
 {{- default "default" .Values.securityGroup.name }}
 {{- end }}
@@ -85,7 +85,7 @@ Defines a "function" converting a backend service address into a URL
 {{/*
 Return instance and name labels.
 */}}
-{{- define "eks-deploy.instance-name" -}}
+{{- define "noths-deploy.instance-name" -}}
 app.kubernetes.io/instance: {{ .Release.Name | quote }}
-app.kubernetes.io/name: {{ include "eks-deploy.name" . | quote }}
+app.kubernetes.io/name: {{ include "noths-deploy.name" . | quote }}
 {{- end -}}

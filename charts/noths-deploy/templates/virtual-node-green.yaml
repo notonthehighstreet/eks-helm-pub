@@ -1,19 +1,19 @@
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualNode
 metadata:
-  name: {{ template "eks-deploy.fullname" . }}-green
+  name: {{ template "noths-deploy.fullname" . }}-green
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "eks-deploy.labels" . | nindent 4 }}
-    app: {{ template "eks-deploy.name" . }}
-    chart: {{ template "eks-deploy.chart" . }}
+    {{- include "noths-deploy.labels" . | nindent 4 }}
+    app: {{ template "noths-deploy.name" . }}
+    chart: {{ template "noths-deploy.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
     version: green
 spec:
   podSelector:
     matchLabels:
-      app: {{ template "eks-deploy.name" . }}
+      app: {{ template "noths-deploy.name" . }}
       release: {{ .Release.Name }}
       version: green
   listeners:
@@ -26,8 +26,8 @@ spec:
   backends:
     - virtualService:
         virtualServiceRef:
-          name: {{ template "eks-deploy.fullname" . }}
+          name: {{ template "noths-deploy.fullname" . }}
   serviceDiscovery:
     awsCloudMap:
       namespaceName: {{ .Values.deployment.dnsDomain | quote }}
-      serviceName: {{ template "eks-deploy.fullname" . }}-green
+      serviceName: {{ template "noths-deploy.fullname" . }}-green

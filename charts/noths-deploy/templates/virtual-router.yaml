@@ -1,11 +1,11 @@
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualRouter
 metadata:
-  name: {{ template "eks-deploy.fullname" . }}
+  name: {{ template "noths-deploy.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ template "eks-deploy.name" . }}
-    chart: {{ template "eks-deploy.chart" . }}
+    app: {{ template "noths-deploy.name" . }}
+    chart: {{ template "noths-deploy.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
@@ -14,7 +14,7 @@ spec:
         port: {{ .Values.service.port }}
         protocol: {{ .Values.appMesh.vRouterListenerProtocol }}
   routes:
-    - name: {{ template "eks-deploy.fullname" . }}-route
+    - name: {{ template "noths-deploy.fullname" . }}-route
       httpRoute:
         match:
           prefix: {{ .Values.appMesh.gateway.route.prefix }}

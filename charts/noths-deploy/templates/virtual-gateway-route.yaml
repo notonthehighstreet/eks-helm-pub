@@ -12,5 +12,5 @@ spec:
       target:
         virtualService:
           virtualServiceRef:
-            name: {{ template "eks-deploy.fullname" . }}
+            name: {{ template "noths-deploy.fullname" . }}
 {{- end -}}

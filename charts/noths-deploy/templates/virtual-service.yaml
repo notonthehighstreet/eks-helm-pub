@@ -1,16 +1,16 @@
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualService
 metadata:
-  name: {{ template "eks-deploy.fullname" . }}
+  name: {{ template "noths-deploy.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ template "eks-deploy.name" . }}
-    chart: {{ template "eks-deploy.chart" . }}
+    app: {{ template "noths-deploy.name" . }}
+    chart: {{ template "noths-deploy.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  awsName: {{ template "eks-deploy.fullname" . }}.{{ .Values.deployment.dnsDomain }}
+  awsName: {{ template "noths-deploy.fullname" . }}.{{ .Values.deployment.dnsDomain }}
   provider:
     virtualRouter:
       virtualRouterRef:
-        name: {{ template "eks-deploy.fullname" . }}
+        name: {{ template "noths-deploy.fullname" . }}

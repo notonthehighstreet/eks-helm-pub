@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "eks-deploy.fullname" . }}-green
+  name: {{ include "noths-deploy.fullname" . }}-green
   labels:
-    {{- include "eks-deploy.labels" . | nindent 4 }}
+    {{- include "noths-deploy.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "eks-deploy.fullname" . }}-green
+    name: {{ include "noths-deploy.fullname" . }}-green
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:

@@ -2,18 +2,18 @@
 apiVersion: vpcresources.k8s.aws/v1beta1
 kind: SecurityGroupPolicy
 metadata:
-  name: {{ template "eks-deploy.securityGroupName" . }}
+  name: {{ template "noths-deploy.securityGroupName" . }}
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "eks-deploy.labels" . | nindent 4 }}
-    app: {{ template "eks-deploy.name" . }}
-    chart: {{ template "eks-deploy.chart" . }}
+    {{- include "noths-deploy.labels" . | nindent 4 }}
+    app: {{ template "noths-deploy.name" . }}
+    chart: {{ template "noths-deploy.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
   podSelector: 
     matchLabels:
-      role: {{ include "eks-deploy.serviceAccountName" . }}
+      role: {{ include "noths-deploy.serviceAccountName" . }}
   securityGroups:
     groupIds: 
       {{- range .Values.securityGroup.groupIds }}

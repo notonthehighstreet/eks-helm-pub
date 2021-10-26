@@ -3,14 +3,14 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-{{ include "eks-deploy.labels" . | indent 4 }}
-  name: {{ template "eks-deploy.fullname" . }}
+{{ include "noths-deploy.labels" . | indent 4 }}
+  name: {{ template "noths-deploy.fullname" . }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: {{ template "eks-deploy.fullname" . }}
+  name: {{ template "noths-deploy.fullname" . }}
 subjects:
   - kind: ServiceAccount
-    name: {{ template "eks-deploy.serviceAccountName" . }}
+    name: {{ template "noths-deploy.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 {{- end -}}

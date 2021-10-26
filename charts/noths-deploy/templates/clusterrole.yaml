@@ -3,8 +3,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-{{ include "eks-deploy.labels" . | indent 4 }}
-  name: {{ template "eks-deploy.fullname" . }}
+{{ include "noths-deploy.labels" . | indent 4 }}
+  name: {{ template "noths-deploy.fullname" . }}
 rules:
   - apiGroups:
       - ""
@@ -31,7 +31,7 @@ rules:
     resources:
       - endpoints
     resourceNames:
-      - eks-deploy
+      - noths-deploy
     verbs:
       - get
       - update
@@ -128,7 +128,7 @@ rules:
   - apiGroups:
     - coordination.k8s.io
     resourceNames:
-    - eks-deploy
+    - noths-deploy
     resources:
     - leases
     verbs:
@@ -141,7 +141,7 @@ rules:
     resources:
     - podsecuritypolicies
     resourceNames:
-    - {{ template "eks-deploy.fullname" . }}
+    - {{ template "noths-deploy.fullname" . }}
     verbs:
     - use
 {{- end -}}

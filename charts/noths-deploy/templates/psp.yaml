@@ -2,9 +2,9 @@
 apiVersion: policy/v1beta1
 kind: PodSecurityPolicy
 metadata:
-  name: {{ template "eks-deploy.fullname" . }}
+  name: {{ template "noths-deploy.fullname" . }}
   labels:
-{{ include "eks-deploy.labels" . | indent 4 }}
+{{ include "noths-deploy.labels" . | indent 4 }}
   annotations:
     seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 spec:
@@ -30,28 +30,28 @@ spec:
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: {{ template "eks-deploy.fullname" . }}-psp
+  name: {{ template "noths-deploy.fullname" . }}-psp
   labels:
-{{ include "eks-deploy.labels" . | indent 4 }}
+{{ include "noths-deploy.labels" . | indent 4 }}
 rules:
   - apiGroups: ['policy']
     resources: ['podsecuritypolicies']
     verbs:     ['use']
     resourceNames:
-      - {{ template "eks-deploy.fullname" . }}
+      - {{ template "noths-deploy.fullname" . }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: {{ template "eks-deploy.fullname" . }}-psp
+  name: {{ template "noths-deploy.fullname" . }}-psp
   labels:
-{{ include "eks-deploy.labels" . | indent 4 }}
+{{ include "noths-deploy.labels" . | indent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{ template "eks-deploy.fullname" . }}-psp
+  name: {{ template "noths-deploy.fullname" . }}-psp
 subjects:
   - kind: ServiceAccount
-    name: {{ template "eks-deploy.serviceAccountName" . }}
+    name: {{ template "noths-deploy.serviceAccountName" . }}
     namespace: {{ .Release.Namespace }}
 {{- end }}

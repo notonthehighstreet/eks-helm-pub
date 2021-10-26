@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "eks-deploy.fullname" . }}-green
+  name: {{ include "noths-deploy.fullname" . }}-green
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "eks-deploy.labels" . | nindent 4 }}
-    app: {{ template "eks-deploy.name" . }}
-    chart: {{ template "eks-deploy.chart" . }}
+    {{- include "noths-deploy.labels" . | nindent 4 }}
+    app: {{ template "noths-deploy.name" . }}
+    chart: {{ template "noths-deploy.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
     version: green
@@ -22,6 +22,6 @@ spec:
       {{- end }}
       protocol: TCP
   selector:
-    {{- include "eks-deploy.selectorLabels" . | nindent 4 }}
-    app: {{ include "eks-deploy.fullname" . }}
+    {{- include "noths-deploy.selectorLabels" . | nindent 4 }}
+    app: {{ include "noths-deploy.fullname" . }}
     version: green
