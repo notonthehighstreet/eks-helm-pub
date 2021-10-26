@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "eks-deploy.fullname" . }}-blue
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "eks-deploy.labels" . | nindent 4 }}
+    app: {{ template "eks-deploy.name" . }}
+    chart: {{ template "eks-deploy.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    version: blue
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      {{- if .Values.service.targetPort }}
+      targetPort: {{ .Values.service.targetPort }}
+      {{- end }}
+      {{- if .Values.service.portName }}
+      name: {{ .Values.service.portName }}
+      {{- end }}
+      protocol: TCP
+  selector:
+    {{- include "eks-deploy.selectorLabels" . | nindent 4 }}
+    app: {{ include "eks-deploy.fullname" . }}
+    version: blue
