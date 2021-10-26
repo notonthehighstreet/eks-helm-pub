@@ -378,4 +378,15 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/datadog-appmesh-0.0.1/datadog-appmesh-0.0.1.tgz
     version: 0.0.1
-generated: "2021-09-27T17:34:34.439256163Z"
+  noths-deploy:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2021-10-26T13:17:50.92091003Z"
+    description: A Helm chart for Kubernetes
+    digest: 90c7d78691b1e8d05ce03e2b82af65770746ea210686f603f723efb5ea241a1a
+    name: noths-deploy
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/noths-deploy-0.1.0/noths-deploy-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-10-26T13:17:50.921045332Z"
