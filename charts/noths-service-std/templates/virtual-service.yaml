@@ -11,6 +11,6 @@ metadata:
 spec:
   awsName: {{ template "noths-service-std.fullname" . }}.{{ .Values.deployment.dnsDomain }}
   provider:
-    virtualRouter:
-      virtualRouterRef:
+    virtualNode:
+      virtualNodeRef:
         name: {{ template "noths-service-std.fullname" . }}

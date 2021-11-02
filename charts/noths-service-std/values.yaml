@@ -17,11 +17,8 @@ image:
 deployment:
   containerPort: 8080
   dnsDomain: "" # e.g svc.cluster.local
-
-backend:
-  envAddresses: # These entries will be turned into environment variables e.g: 
-    # Settings_ServiceBaseUrl: http://green.backend.svc.cluster.local/
-    ServiceName: ""
+  env: {} # Environmet variables please provide as a key / value map
+  secrets: {}  # Secret Variables (pumped to kube secrets) Please provides as a key / value map
 
 appMesh:
   create: false

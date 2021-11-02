@@ -1,21 +1,19 @@
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualNode
 metadata:
-  name: {{ template "noths-service-std.fullname" . }}-blue
+  name: {{ template "noths-service-std.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "noths-service-std.labels" . | nindent 4 }}
-    app: {{ template "noths-service-std.name" . }}-blue
+    app: {{ template "noths-service-std.name" . }}
     chart: {{ template "noths-service-std.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    version: blue
 spec:
   podSelector:
     matchLabels:
       app: {{ template "noths-service-std.name" . }}
       release: {{ .Release.Name }}
-      version: blue
   listeners:
   - portMapping:
       port: {{ .Values.deployment.containerPort }}
@@ -30,4 +28,4 @@ spec:
   serviceDiscovery:
     awsCloudMap:
       namespaceName: {{ .Values.deployment.dnsDomain | quote }}
-      serviceName: {{ template "noths-service-std.fullname" . }}-blue
+      serviceName: {{ template "noths-service-std.fullname" . }}

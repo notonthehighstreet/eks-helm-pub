@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "noths-service-std.fullname" . }}-blue
+  name: {{ include "noths-service-std.fullname" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "noths-service-std.labels" . | nindent 4 }}
@@ -9,7 +9,6 @@ metadata:
     chart: {{ template "noths-service-std.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
-    version: blue
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -24,4 +23,3 @@ spec:
   selector:
     {{- include "noths-service-std.selectorLabels" . | nindent 4 }}
     app: {{ include "noths-service-std.fullname" . }}
-    version: blue
