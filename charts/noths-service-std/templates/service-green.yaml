@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "noths-service-std.fullname" . }}-green
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "noths-service-std.labels" . | nindent 4 }}
+    app: {{ template "noths-service-std.name" . }}
+    chart: {{ template "noths-service-std.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    version: green
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      {{- if .Values.service.targetPort }}
+      targetPort: {{ .Values.service.targetPort }}
+      {{- end }}
+      {{- if .Values.service.portName }}
+      name: {{ .Values.service.portName }}
+      {{- end }}
+      protocol: TCP
+  selector:
+    {{- include "noths-service-std.selectorLabels" . | nindent 4 }}
+    app: {{ include "noths-service-std.fullname" . }}
+    version: green

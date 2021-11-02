@@ -1,0 +1,22 @@
+{{- if .Values.securityGroup.create -}}
+apiVersion: vpcresources.k8s.aws/v1beta1
+kind: SecurityGroupPolicy
+metadata:
+  name: {{ template "noths-service-ha.securityGroupName" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "noths-service-ha.labels" . | nindent 4 }}
+    app: {{ template "noths-service-ha.name" . }}
+    chart: {{ template "noths-service-ha.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  podSelector: 
+    matchLabels:
+      role: {{ include "noths-service-ha.serviceAccountName" . }}
+  securityGroups:
+    groupIds: 
+      {{- range .Values.securityGroup.groupIds }}
+      -  {{ . }}
+      {{- end }}  
+{{- end -}}
