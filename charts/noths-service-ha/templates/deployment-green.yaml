@@ -1,0 +1,95 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "noths-service-ha.fullname" . }}-green
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "noths-service-ha.labels" . | nindent 4 }}
+    app: {{ template "noths-service-ha.name" . }}
+    chart: {{ template "noths-service-ha.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+    version: green
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCountGreen }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "noths-service-ha.selectorLabels" . | nindent 6 }}
+      app: {{ template "noths-service-ha.name" . }}
+      release: {{ .Release.Name }}
+      version: green
+      {{- if .Values.securityGroup.create }}
+      role: {{ template "noths-service-ha.serviceAccountName" . }}
+      {{- end }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "noths-service-ha.selectorLabels" . | nindent 8 }}
+        app: {{ template "noths-service-ha.name" . }}
+        release: {{ .Release.Name }}
+        version: green
+        {{- if .Values.securityGroup.create }}
+        role: {{ template "noths-service-ha.serviceAccountName" . }}
+        {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "noths-service-ha.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tagGreen | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.deployment.containerPort }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            {{- range $key, $value := .Values.deployment.env }}
+            - name: {{ $key }}
+              value: {{ $value }}
+            {{- end }}
+            {{- $rootPath := . }}
+            {{- range $secretName, $values := .Values.deployment.secrets }}
+            {{- range $key, $value := $values }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "noths-service-std.name" $rootPath }}-{{ $secretName | lower }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        name: {{ .Release.Namespace }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,0 +1,16 @@
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualService
+metadata:
+  name: {{ template "noths-service-ha.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "noths-service-ha.name" . }}
+    chart: {{ template "noths-service-ha.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  awsName: {{ template "noths-service-ha.fullname" . }}.{{ .Values.deployment.dnsDomain }}
+  provider:
+    virtualRouter:
+      virtualRouterRef:
+        name: {{ template "noths-service-ha.fullname" . }}
