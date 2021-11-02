@@ -65,6 +65,21 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            {{- range $key, $value := .Values.deployment.env }}
+            - name: {{ $key }}
+              value: {{ $value }}
+            {{- end }}
+            {{- $rootPath := . }}
+            {{- range $secretName, $values := .Values.deployment.secrets }}
+            {{- range $key, $value := $values }}
+            - name: {{ $key }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ template "noths-service-std.name" $rootPath }}-{{ $secretName | lower }}
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         name: {{ .Release.Namespace }}
