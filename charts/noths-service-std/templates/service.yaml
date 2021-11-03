@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "noths-service-std.fullname" . }}
+  name: {{ include "noths-service-std.name" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "noths-service-std.labels" . | nindent 4 }}
@@ -22,4 +22,4 @@ spec:
       protocol: TCP
   selector:
     {{- include "noths-service-std.selectorLabels" . | nindent 4 }}
-    app: {{ include "noths-service-std.fullname" . }}
+    app: {{ include "noths-service-std.name" . }}

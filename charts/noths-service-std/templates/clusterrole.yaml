@@ -4,7 +4,7 @@ kind: ClusterRole
 metadata:
   labels:
 {{ include "noths-service-std.labels" . | indent 4 }}
-  name: {{ template "noths-service-std.fullname" . }}
+  name: {{ template "noths-service-std.name" . }}
 rules:
   - apiGroups:
       - ""
@@ -141,7 +141,7 @@ rules:
     resources:
     - podsecuritypolicies
     resourceNames:
-    - {{ template "noths-service-std.fullname" . }}
+    - {{ template "noths-service-std.name" . }}
     verbs:
     - use
 {{- end -}}

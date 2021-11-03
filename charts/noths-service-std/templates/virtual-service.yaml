@@ -1,7 +1,7 @@
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualService
 metadata:
-  name: {{ template "noths-service-std.fullname" . }}
+  name: {{ template "noths-service-std.name" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "noths-service-std.name" . }}
@@ -9,8 +9,8 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  awsName: {{ template "noths-service-std.fullname" . }}.{{ .Values.deployment.dnsDomain }}
+  awsName: {{ template "noths-service-std.name" . }}.{{ .Values.deployment.dnsDomain }}
   provider:
     virtualNode:
       virtualNodeRef:
-        name: {{ template "noths-service-std.fullname" . }}
+        name: {{ template "noths-service-std.name" . }}

@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "noths-service-std.fullname" . }}
+  name: {{ include "noths-service-std.name" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "noths-service-std.labels" . | nindent 4 }}
@@ -73,7 +73,7 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "noths-service-std.fullname" $rootPath }}-{{ $secretName | lower }}
+                  name: {{ template "noths-service-std.name" $rootPath }}-{{ $secretName | lower }}
                   key: {{ $key }}
             {{- end }}
             {{- end }}

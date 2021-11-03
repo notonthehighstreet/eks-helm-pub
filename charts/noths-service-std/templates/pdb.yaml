@@ -4,7 +4,7 @@ kind: PodDisruptionBudget
 metadata:
   labels:
 {{ include "noths-service-std.labels" . | indent 4 }}
-  name: {{ template "noths-service-std.fullname" . }}
+  name: {{ template "noths-service-std.name" . }}
 spec:
   selector:
     matchLabels:
