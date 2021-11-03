@@ -19,6 +19,9 @@ deployment:
   dnsDomain: "" # e.g svc.cluster.local
   env: # Environmet variables please provide as a key / value map
   secrets: {}  # Secret Variables (pumped to kube secrets) Please provides as a key / value map
+  enableProbes: false
+  livenessProbe: {}
+  readinessProbe: {}
 
 appMesh:
   create: false
