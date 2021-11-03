@@ -435,6 +435,16 @@ entries:
     version: 0.0.1
   noths-service-std:
   - apiVersion: v2
+    appVersion: 2.0.1
+    created: "2021-11-03T15:58:35.588832827Z"
+    description: Noths EKS Generic Service Helm Deployment Chart (Standard Edition)
+    digest: 31fed184c9bd99bea35bb3fde818fdd9f8bd14fcc57baa4938c4ca45dfb70e04
+    name: noths-service-std
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/noths-service-std-0.3.0/noths-service-std-0.3.0.tgz
+    version: 0.3.0
+  - apiVersion: v2
     appVersion: 2.0.0
     created: "2021-11-03T14:43:37.45856132Z"
     description: Noths EKS Generic Service Helm Deployment Chart (Standard Edition)
@@ -484,4 +494,4 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/noths-service-std-0.0.1/noths-service-std-0.0.1.tgz
     version: 0.0.1
-generated: "2021-11-03T14:43:37.458727926Z"
+generated: "2021-11-03T15:58:35.589157944Z"
