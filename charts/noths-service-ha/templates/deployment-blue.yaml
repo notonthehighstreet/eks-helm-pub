@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "noths-service-ha.fullname" . }}-blue
+  name: {{ include "noths-service-ha.name" . }}-blue
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "noths-service-ha.labels" . | nindent 4 }}
@@ -46,7 +46,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .template "noths-service-ha.name" . }}-blue
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tagBlue | default .Chart.AppVersion }}"
@@ -76,7 +76,7 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "noths-service-std.fullname" $rootPath }}-{{ $secretName | lower }}
+                  name: {{ template "noths-service-std.name" $rootPath }}-{{ $secretName | lower }}
                   key: {{ $key }}
             {{- end }}
             {{- end }}

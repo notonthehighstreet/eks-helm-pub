@@ -1,7 +1,7 @@
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualNode
 metadata:
-  name: {{ template "noths-service-ha.fullname" . }}-green
+  name: {{ template "noths-service-ha.name" . }}-green
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "noths-service-ha.labels" . | nindent 4 }}
@@ -26,8 +26,8 @@ spec:
   backends:
     - virtualService:
         virtualServiceRef:
-          name: {{ template "noths-service-ha.fullname" . }}
+          name: {{ template "noths-service-ha.name" . }}
   serviceDiscovery:
     awsCloudMap:
       namespaceName: {{ .Values.deployment.dnsDomain | quote }}
-      serviceName: {{ template "noths-service-ha.fullname" . }}-green
+      serviceName: {{ template "noths-service-ha.name" . }}-green

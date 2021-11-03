@@ -12,5 +12,5 @@ spec:
       target:
         virtualService:
           virtualServiceRef:
-            name: {{ template "noths-service-ha.fullname" . }}
+            name: {{ template "noths-service-ha.name" . }}
 {{- end -}}

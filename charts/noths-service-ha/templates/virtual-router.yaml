@@ -1,7 +1,7 @@
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualRouter
 metadata:
-  name: {{ template "noths-service-ha.fullname" . }}
+  name: {{ template "noths-service-ha.name" . }}
   namespace: {{ .Release.Namespace }}
   labels:
     app: {{ template "noths-service-ha.name" . }}
@@ -14,7 +14,7 @@ spec:
         port: {{ .Values.service.port }}
         protocol: {{ .Values.appMesh.vRouterListenerProtocol }}
   routes:
-    - name: {{ template "noths-service-ha.fullname" . }}-route
+    - name: {{ template "noths-service-ha.name" . }}-route
       httpRoute:
         match:
           prefix: {{ .Values.appMesh.gateway.route.prefix }}

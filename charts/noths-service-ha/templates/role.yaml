@@ -4,7 +4,7 @@ kind: Role
 metadata:
   labels:
 {{ include "noths-service-ha.labels" . | indent 4 }}
-  name: {{ template "noths-service-ha.fullname" . }}
+  name: {{ template "noths-service-ha.name" . }}
 rules:
   - apiGroups:
       - ""
