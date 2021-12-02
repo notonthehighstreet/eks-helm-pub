@@ -1,0 +1,30 @@
+{{- range .Values.deployments }}
+---
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualRouter
+metadata:
+  name: {{ template "noths-service-ha.name" $ }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    app: {{ template "noths-service-ha.name" $ }}
+    chart: {{ template "noths-service-ha.chart" $ }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+spec:
+  listeners:
+    - portMapping:
+        port: {{ $.Values.service.port }}
+        protocol: {{ $.Values.appMesh.vRouterListenerProtocol }}
+  routes:
+    - name: {{ template "noths-service-ha.name" $ }}-route
+      httpRoute:
+        match:
+          prefix: {{ $.Values.appMesh.gateway.route.prefix }}
+        action:
+          weightedTargets:
+          {{- range required "At least one target VirtualNode has to be specified" $.Values.appMesh.targets }}
+            - virtualNodeRef:
+                name: {{ .vNodeName }}
+              weight: {{ .weight }}
+          {{- end }}
+{{- end }}

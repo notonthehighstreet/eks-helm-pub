@@ -1,0 +1,37 @@
+
+{{- range .Values.deployments }}
+---
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: VirtualNode
+metadata:
+  name: {{ template "noths-service-ha.name" $ }}-green
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    {{- include "noths-service-ha.labels" $ | nindent 4 }}
+    app: {{ template "noths-service-ha.name" $ }}
+    chart: {{ template "noths-service-ha.chart" $ }}
+    release: {{ $.Release.Name }}
+    heritage: {{ $.Release.Service }}
+    version: green
+spec:
+  podSelector:
+    matchLabels:
+      app: {{ template "noths-service-ha.name" $ }}
+      release: {{ $.Release.Name }}
+      version: green
+  listeners:
+  - portMapping:
+      port: {{ $.containerPort }}
+      protocol: http  
+    {{- if $.Values.appMesh.backendVirtualServices }}
+    {{ toYaml $.Values.appMesh.healthCheck }}
+    {{- end }}
+  backends:
+    - virtualService:
+        virtualServiceRef:
+          name: {{ template "noths-service-ha.name" $ }}
+  serviceDiscovery:
+    awsCloudMap:
+      namespaceName: {{ .dnsDomain | quote }}
+      serviceName: {{ template "noths-service-ha.name" $ }}-green
+{{- end }}

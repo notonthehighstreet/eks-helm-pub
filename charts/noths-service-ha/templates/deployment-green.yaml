@@ -46,7 +46,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .template "noths-service-ha.name" . }}-green
+        - name: {{ template "noths-service-ha.name" . }}-green
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tagGreen | default .Chart.AppVersion }}"
