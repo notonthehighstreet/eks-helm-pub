@@ -12,12 +12,13 @@ spec:
   listeners:
     - portMapping:
         port: {{ .Values.service.port }}
-        protocol: {{ .Values.appMesh.vRouterListenerProtocol }}
+        protocol: {{ .Values.appMesh.router.listenerProtocol }}
   routes:
-    - name: {{ template "noths-service-ha.name" . }}-route
+    {{- if .Values.appMesh.gateway.www.create -}}
+    - name: {{ template "noths-service-ha.name" . }}-www-route
       httpRoute:
         match:
-          prefix: {{ .Values.appMesh.gateway.route.prefix }}
+          prefix: {{ .Values.appMesh.gateway.www.route.prefix }}
         action:
           weightedTargets:
           {{- range required "At least one target VirtualNode has to be specified" .Values.appMesh.targets }}
@@ -25,3 +26,30 @@ spec:
                 name: {{ .vNodeName }}
               weight: {{ .weight }}
           {{- end }}
+    {{- end }}
+    {{- if .Values.appMesh.gateway.api.create -}}
+    - name: {{ template "noths-service-ha.name" . }}-api-route
+      httpRoute:
+        match:
+          prefix: {{ .Values.appMesh.gateway.api.route.prefix }}
+        action:
+          weightedTargets:
+          {{- range required "At least one target VirtualNode has to be specified" .Values.appMesh.targets }}
+            - virtualNodeRef:
+                name: {{ .vNodeName }}
+              weight: {{ .weight }}
+          {{- end }}
+    {{- end }}
+    {{- if .Values.appMesh.gateway.private.create -}}
+    - name: {{ template "noths-service-ha.name" . }}-private-route
+      httpRoute:
+        match:
+          prefix: {{ .Values.appMesh.gateway.private.route.prefix }}
+        action:
+          weightedTargets:
+          {{- range required "At least one target VirtualNode has to be specified" .Values.appMesh.targets }}
+            - virtualNodeRef:
+                name: {{ .vNodeName }}
+              weight: {{ .weight }}
+          {{- end }}
+    {{- end }}
