@@ -1,0 +1,17 @@
+{{- if .Values.appMesh.gateway.www.route.create -}}
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: GatewayRoute
+metadata:
+  name: {{ .Values.appMesh.gateway.www.route.name }}
+  namespace: {{ .Values.appMesh.gateway.www.route.namespace }}
+spec:
+  httpRoute:
+    match:
+      prefix: {{ .Values.appMesh.gateway.www.route.prefix }}
+    action:
+      target:
+        virtualService:
+          virtualServiceRef:
+            name: {{ template "noths-service-std.name" . }}
+            namespace: {{ .Release.Namespace }}
+{{- end -}}
