@@ -1,13 +1,13 @@
-{{- if .Values.appMesh.gateway.www.route.create -}}
+{{- if .Values.appMesh.gateway.private.route.create -}}
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: GatewayRoute
 metadata:
-  name: {{ .Values.appMesh.gateway.www.route.name }}
-  namespace: {{ .Values.appMesh.gateway.www.route.namespace }}
+  name: {{ .Values.appMesh.gateway.private.route.name }}
+  Namespace: {{ .Values.appMesh.gateway.private.route.namespace }}
 spec:
   httpRoute:
     match:
-      prefix: {{ .Values.appMesh.gateway.www.route.prefix }}
+      prefix: {{ .Values.appMesh.gateway.private.route.prefix }}
     action:
       target:
         virtualService:

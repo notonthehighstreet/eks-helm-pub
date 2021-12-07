@@ -59,7 +59,7 @@ appMesh:
     healthCheck:
       healthyThreshold: 2
       intervalMillis: 5000
-      path: /health 
+      path: /health
       protocol: http
       timeoutMillis: 2000
       unhealthyThreshold: 2

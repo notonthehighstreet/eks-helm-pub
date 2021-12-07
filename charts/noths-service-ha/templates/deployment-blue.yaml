@@ -46,7 +46,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
-        - name: {{ .template "noths-service-ha.name" . }}-blue
+        - name: {{ template "noths-service-ha.name" . }}-blue
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tagBlue | default .Chart.AppVersion }}"
@@ -55,14 +55,12 @@ spec:
             - name: http
               containerPort: {{ .Values.deployment.containerPort }}
               protocol: TCP
+          {{- if .Values.deployment.enableProbes }}
           livenessProbe:
-            httpGet:
-              path: /health
-              port: http
+            {{- toYaml .Values.deployment.livenessProbe | nindent 12 }}
           readinessProbe:
-            httpGet:
-              path: /health
-              port: http
+            {{- toYaml .Values.deployment.readinessProbe | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
