@@ -18,8 +18,8 @@ spec:
   - portMapping:
       port: {{ .Values.deployment.containerPort }}
       protocol: http  
-    {{- if .Values.appMesh.backendVirtualServices }}
-    {{ toYaml .Values.appMesh.healthCheck }}
+    {{- if .Values.appMesh.node.enableHealthCheck }}
+    {{ toYaml .Values.appMesh.node.healthCheck }}
     {{- end }}
   backends:
     - virtualService:

@@ -27,31 +27,47 @@ appMesh:
   create: false
   external: false
   name: # e.g test-mesh
-  enableExternalTraffic: false
-  vRouterListenerProtocol: http
-  gatewayRouteMatchPrefix: # Supply override here, otherwise it's "/service-name"
   targets:  # Uncomment snippet below to set route(s) to your existing back-end app Virtual Node
     - vNodeName: ""
       weight: 100
   gateway:
-    name: # The name of the appmesh gateway
-    route:
-      create: true
-      port: 8088
-      prefix: "/"
+    api:
+      route:
+        name: # The name of the appmesh api gateway
+        namespace: ""
+        create: false
+        port: 8088
+        prefix: "/"
+    www:
+      route:
+        name: # The name of the appmesh www gateway
+        namespace: ""
+        create: true
+        port: 8088
+        prefix: "/"
+    private:
+      route:
+        name: # The name of the appmesh private gateway
+        namespace: ""
+        create: false
+        port: 8088
+        prefix: "/"
+  router:
+    listenerProtocol: http
+  node:
+    enableHealthCheck: false
+    healthCheck:
+      healthyThreshold: 2
+      intervalMillis: 5000
+      path: /health 
+      protocol: http
+      timeoutMillis: 2000
+      unhealthyThreshold: 2
   envoy:
     image: "public.ecr.aws/appmesh/aws-appmesh-envoy:v1.19.0.0-prod"
   aws:
     arn: # The ARN of an existing mesh set external to true above
     accountID: # If external provide an external accountID
-
-  healthCheck:
-    healthyThreshold: 2
-    intervalMillis: 5000
-    path: /health 
-    protocol: http
-    timeoutMillis: 2000
-    unhealthyThreshold: 2
 
 rbac:
   # rbac.create: `true` if rbac resources should be created
