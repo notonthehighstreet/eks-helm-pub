@@ -2,8 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 #
-replicaCountBlue: 1
-replicaCountGreen: 1
+defaultsReplicaCountBlue: 1
+defaultReplicaCountGreen: 1
 
 # aws config
 aws:
@@ -16,21 +16,30 @@ image:
   tagBlue: "" # e.g latest
   tagGreen: "" # e.g latest
 
-deployments:
-  service1:
-    containerPort: 8080
-    dnsDomain: "sheep" # e.g svc.cluster.local
-    env: # Environmet variables please provide as a key / value map
-    secrets: {}  # Secret Variables (pumped to kube secrets) Please provides as a key / value map
-  service2:
-    containerPort: 8080
-    dnsDomain: "monkeys" # e.g svc.cluster.local
-    env: # Environmet variables please provide as a key / value map
-    secrets: {}  # Secret Variables (pumped to kube secrets) Please provides as a key / value map
+#noths_services:
+#  noths_service_1:
+#    podSecurityContext:
+#      capabilities:
+#        drop:
+#          - ALL
+#      readOnlyRootFilesystem: true
+#      runAsNonRoot: true
+#      runAsUser: 2000
+#    deployment:
+#      containerPort: 9999
+#      dnsDomain: "nothservice1" # e.g svc.cluster.local
+#      env: {} # Environmet variables please provide as a key / value map
+#      secrets: {}  # Secret Variables (pumped to kube secrets) Please provides as a key / value map
+#    service:
+#      type: ClusterIP
+#  noths_service_2:
+#    deployment:
+#      containerPort: 8080
+#      dnsDomain: "nothservice2" # e.g svc.cluster.local
+#      env: {} # Environmet variables please provide as a key / value map
+#      secrets: {}  # Secret Variables (pumped to kube secrets) Please provides as a key / value map
 
-
-
-appMesh:
+defaultAppMesh:
   create: false
   external: false
   name: # e.g test-mesh
@@ -86,15 +95,10 @@ serviceAccount:
   name: ""
 
 # podDisruptionBudget -- Pod disruption budget.
-podDisruptionBudget:
+defatulPodDisruptionBudget:
   maxUnavailable: 1
 
-podAnnotations: {}
-
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext:
+defaultSecurityContext:
   capabilities:
     drop:
       - ALL
@@ -102,13 +106,13 @@ securityContext:
   runAsNonRoot: true
   runAsUser: 1000
 
-service:
-  type: ClusterIP
-  port: 80
-  portName: http
-  targetPort: http
+#service:
+#  type: ClusterIP
+#  port: 80
+#  portName: http
+#  targetPort: http
 
-resources: {}
+defaultResources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -127,11 +131,11 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
 
-nodeSelector: {}
+defaultNodeSelector: {}
 
-tolerations: []
+defaultTolerations: []
 
-affinity: {}
+defaultAffinity: {}
 
 ## Priorities Expander
 expanderPriorities: {}
