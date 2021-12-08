@@ -27,7 +27,29 @@ spec:
     - virtualService:
         virtualServiceRef:
           name: {{ template "noths-service-ha.name" . }}
+  {{- if .Values.appMesh.node.enableSdsTls }}
+  backendDefaults:
+    clientPolicy:
+      tls:
+        enforce: {{ .Values.appMesh.node.tls.enforce }}
+        mode: {{ .Values.appMesh.node.tls.mode }}
+      certificate:
+        sds:
+          secretName: {{ .Values.appMesh.node.tls.trustDomain }}/{{ template "noths-service-ha.name" . }}
+      validation:
+        trust:
+          sds:
+            secretName: {{ .Values.appMesh.node.tls.trustDomain }}
+        subjectAlternativeNames:
+          match:
+            exact: {{ .Values.appMesh.node.tls.allowServiceList }}
+  {{- end }}
   serviceDiscovery:
+    {{- if contains "CloudMap" .Values.appMesh.node.serviceDiscoveryType }}
     awsCloudMap:
       namespaceName: {{ .Values.deployment.dnsDomain | quote }}
       serviceName: {{ template "noths-service-ha.name" . }}-green
+    {{- else }}
+    dns:
+      hostname: {{ template "noths-service-ha.name" . }}-green.{{ .Values.deployment.dnsDomain }}
+    {{- end }}
