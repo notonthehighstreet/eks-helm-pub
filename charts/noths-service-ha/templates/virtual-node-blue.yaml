@@ -35,7 +35,7 @@ spec:
         mode: {{ .Values.appMesh.node.tls.mode }}
       certificate:
         sds:
-          secretName: {{ .Values.appMesh.node.tls.trustDomain }}/{{ template "noths-service-std.name" . }}
+          secretName: {{ .Values.appMesh.node.tls.trustDomain }}/{{ template "noths-service-ha.name" . }}
       validation:
         trust:
           sds:
@@ -51,5 +51,5 @@ spec:
       serviceName: {{ template "noths-service-ha.name" . }}-blue
     {{- else }}
     dns:
-      hostname: {{ template "noths-service-std.name" . }}-blue.{{ .Values.deployment.dnsDomain }}
+      hostname: {{ template "noths-service-ha.name" . }}-blue.{{ .Values.deployment.dnsDomain }}
     {{- end }}
