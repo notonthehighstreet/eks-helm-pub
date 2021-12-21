@@ -1,0 +1,22 @@
+{{- if .Values.appMesh.gateway.create -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.appMesh.gateway.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+{{ include "appmesh-gateway.labels" . | indent 4 }}
+  annotations:
+    {{- range $key, $value := .Values.appMesh.service.annotations }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}
+spec:
+  type: {{ .Values.appMesh.service.type }}
+  externalTrafficPolicy: {{ .Values.appMesh.service.externalTrafficPolicy }}
+  ports:
+    - port: {{ .Values.appMesh.service.port }}
+      targetPort: {{ .Values.appMesh.gateway.port }}
+      name: {{ .Values.appMesh.gateway.proto }}
+  selector:
+    app: {{ .Values.appMesh.gateway.name }}
+{{- end -}}
