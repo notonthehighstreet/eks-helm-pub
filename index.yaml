@@ -23,6 +23,16 @@ entries:
     version: 1.4.0
   appmesh-core:
   - apiVersion: v2
+    appVersion: 2.0.0
+    created: "2021-12-21T10:35:53.137565486Z"
+    description: Appmesh Core Components (Mesh & Gateway) Helm Deployment
+    digest: caf4904cb30cd5beac2b2eaa667a39e1fef5c80be20f6420016a8c3bd6f291e4
+    name: appmesh-core
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/appmesh-core-0.2.7/appmesh-core-0.2.7.tgz
+    version: 0.2.7
+  - apiVersion: v2
     appVersion: 1.0.2
     created: "2021-09-27T17:34:34.438838958Z"
     description: Appmesh Core Components (Mesh & Gateway) Helm Deployment
@@ -557,4 +567,4 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/noths-service-std-0.0.1/noths-service-std-0.0.1.tgz
     version: 0.0.1
-generated: "2021-12-08T10:12:49.840899481Z"
+generated: "2021-12-21T10:35:53.137808988Z"
