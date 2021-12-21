@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "appmesh-core.name" -}}
+{{- define "appmesh-mesh.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "appmesh-core.fullname" -}}
+{{- define "appmesh-mesh.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "appmesh-core.chart" -}}
+{{- define "appmesh-mesh.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "appmesh-core.labels" -}}
-helm.sh/chart: {{ include "appmesh-core.chart" . }}
-{{ include "appmesh-core.selectorLabels" . }}
+{{- define "appmesh-mesh.labels" -}}
+helm.sh/chart: {{ include "appmesh-mesh.chart" . }}
+{{ include "appmesh-mesh.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "appmesh-core.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "appmesh-core.name" . }}
+{{- define "appmesh-mesh.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "appmesh-mesh.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "appmesh-core.serviceAccountName" -}}
+{{- define "appmesh-mesh.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "appmesh-core.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "appmesh-mesh.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
@@ -64,9 +64,9 @@ Create the name of the service account to use
 {{/*
 Create the name of the security group
 */}}
-{{- define "appmesh-core.securityGroupName" -}}
+{{- define "appmesh-mesh.securityGroupName" -}}
 {{- if .Values.securityGroup.create }}
-{{- default (include "appmesh-core.fullname" .) .Values.securityGroup.name }}
+{{- default (include "appmesh-mesh.fullname" .) .Values.securityGroup.name }}
 {{- else }}
 {{- default "default" .Values.securityGroup.name }}
 {{- end }}
@@ -84,7 +84,7 @@ Defines a "function" converting a backend service address into a URL
 {{/*
 Return instance and name labels.
 */}}
-{{- define "appmesh-core.instance-name" -}}
+{{- define "appmesh-mesh.instance-name" -}}
 app.kubernetes.io/instance: {{ .Release.Name | quote }}
-app.kubernetes.io/name: {{ include "appmesh-core.name" . | quote }}
+app.kubernetes.io/name: {{ include "appmesh-mesh.name" . | quote }}
 {{- end -}}
