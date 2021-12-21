@@ -24,6 +24,16 @@ entries:
   appmesh-core:
   - apiVersion: v2
     appVersion: 2.0.0
+    created: "2021-12-21T17:22:17.631484693Z"
+    description: Appmesh Core Components (Mesh & Gateway) Helm Deployment
+    digest: 75c11e8d9ae82e8a36b8888129ef89a9cb25d32bbee6099e5e0a93f6f1fbb697
+    name: appmesh-core
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/appmesh-core-0.2.8/appmesh-core-0.2.8.tgz
+    version: 0.2.8
+  - apiVersion: v2
+    appVersion: 2.0.0
     created: "2021-12-21T10:35:53.137565486Z"
     description: Appmesh Core Components (Mesh & Gateway) Helm Deployment
     digest: caf4904cb30cd5beac2b2eaa667a39e1fef5c80be20f6420016a8c3bd6f291e4
@@ -192,6 +202,28 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/appmesh-core-0.1.1/appmesh-core-0.1.1.tgz
     version: 0.1.1
+  appmesh-gateway:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-12-21T17:22:17.838537313Z"
+    description: Appmesh Gateway Helm Deployment
+    digest: 3314ef0692ebef9430d2f8002df7c2b168418387c8411562106aed039cde413a
+    name: appmesh-gateway
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/appmesh-gateway-1.0.0/appmesh-gateway-1.0.0.tgz
+    version: 1.0.0
+  appmesh-mesh:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2021-12-21T17:22:18.030909088Z"
+    description: Appmesh Service Mesh Helm Deployment
+    digest: 28060b939fac5686a2bb3e1e24fe9716d1cd2edf6c8ff00a371e11b38f9b58b6
+    name: appmesh-mesh
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/appmesh-mesh-1.0.0/appmesh-mesh-1.0.0.tgz
+    version: 1.0.0
   backend-example:
   - apiVersion: v2
     appVersion: 1.0.0
@@ -567,4 +599,4 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/noths-service-std-0.0.1/noths-service-std-0.0.1.tgz
     version: 0.0.1
-generated: "2021-12-21T10:35:53.137808988Z"
+generated: "2021-12-21T17:22:18.031136387Z"
