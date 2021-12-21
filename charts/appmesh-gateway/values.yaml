@@ -1,4 +1,4 @@
-# Default values for appmesh-core.
+# Default values for appmesh-gateway.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 #
@@ -25,10 +25,6 @@ backend:
     ServiceName: ""
 
 appMesh:
-  create: true
-  external: false
-  name: # e.g test-mesh
-  egressFilterType: "DROP_ALL"
   gateway:
     create: true
     name: # The name of the appmesh gateway
@@ -68,7 +64,7 @@ rbac:
 
 securityGroup:
   create: false
-  name: "" #appmesh-core
+  name: "" #appmesh-gateway
   groupIds: [] # A list of security group ids to map to
     # - <sg-abc123>
 

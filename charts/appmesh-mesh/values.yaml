@@ -1,0 +1,28 @@
+# Default values for appmesh-mesh.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# aws config
+aws:
+  region: eu-west-1
+
+appMesh:
+  create: true
+  external: false
+  name: # e.g test-mesh
+  egressFilterType: "DROP_ALL"
+  aws:
+    arn: # The ARN of an existing mesh set external to true above
+    accountID: # If external provide an external accountID
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
