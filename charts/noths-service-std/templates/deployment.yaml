@@ -63,7 +63,7 @@ spec:
           env:
             {{- range $key, $value := .Values.deployment.env }}
             - name: {{ $key }}
-              value: {{ $value }}
+              value: {{ quote $value }}
             {{- end }}
             {{- $rootPath := . }}
             {{- range $secretName, $values := .Values.deployment.secrets }}
