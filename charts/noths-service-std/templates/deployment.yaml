@@ -71,7 +71,7 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "noths-service-std.name" $rootPath }}-{{ $secretName | lower }}
+                  name: {{ template "noths-service-std.name" $rootPath }}-{{ $secretName | lower | replace "_" "-" }}
                   key: {{ $key }}
             {{- end }}
             {{- end }}
