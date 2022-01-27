@@ -31,7 +31,7 @@ spec:
         trust:
           sds:
             secretName: {{ .Values.appMesh.node.tls.trustDomain }}
-      {{ if ! .Values.appMesh.node.tls.allowServiceList }}
+      {{ if not .Values.appMesh.node.tls.allowServiceList }}
         subjectAlternativeNames:
           match:
             exact: {{ .Values.appMesh.node.tls.allowServiceList }}
