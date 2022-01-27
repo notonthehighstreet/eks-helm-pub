@@ -31,10 +31,12 @@ spec:
         trust:
           sds:
             secretName: {{ .Values.appMesh.node.tls.trustDomain }}
+      {{ if ! .Values.appMesh.node.tls.allowServiceList }}
         subjectAlternativeNames:
           match:
             exact: {{ .Values.appMesh.node.tls.allowServiceList }}
-    
+      {{- end }}
+
   backends:
     - virtualService:
         virtualServiceRef:

@@ -69,6 +69,8 @@ appMesh:
       enforce: true
       mode: STRICT
       trustDomain: "spiffe://xxx"
+      # Leaving empty will create a virtual node with no subjectAlternativeNames validate
+      # for the ListenerTlsValidationContext
       allowServiceList: []
   envoy:
     image: "public.ecr.aws/appmesh/aws-appmesh-envoy:v1.19.0.0-prod"
