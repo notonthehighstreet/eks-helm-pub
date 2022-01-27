@@ -21,16 +21,9 @@ spec:
     {{- if .Values.appMesh.node.enableHealthCheck }}
     {{ toYaml .Values.appMesh.node.healthCheck }}
     {{- end }}
-  backends:
-    - virtualService:
-        virtualServiceRef:
-          name: {{ template "noths-service-std.name" . }}
-  {{- if .Values.appMesh.node.enableSdsTls }}
-  backendDefaults:
-    clientPolicy:
-      tls:
-        enforce: {{ .Values.appMesh.node.tls.enforce }}
-        mode: {{ .Values.appMesh.node.tls.mode }}
+    tls:
+      # mode: STRICT | PERMISSIVE | DISABLE # used by virtual nodes to 
+      mode: {{ .Values.appMesh.node.tls.mode }}
       certificate:
         sds:
           secretName: {{ .Values.appMesh.node.tls.trustDomain }}/{{ template "noths-service-std.name" . }}
@@ -41,6 +34,14 @@ spec:
         subjectAlternativeNames:
           match:
             exact: {{ .Values.appMesh.node.tls.allowServiceList }}
+    
+  backends:
+    - virtualService:
+        virtualServiceRef:
+          name: {{ template "noths-service-std.name" . }}
+  {{- if .Values.appMesh.node.enableSdsTls }}
+  backendDefaults:
+    clientPolicy:
   {{- end }}
   serviceDiscovery:
     {{- if contains "CloudMap" .Values.appMesh.node.serviceDiscoveryType }}
