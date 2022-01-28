@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
   annotations:
     # Only configured AppMesh on the defined container port
-    appmesh.k8s.aws/ports: "{{ .Values.deployment.containerPort }}""
+    appmesh.k8s.aws/ports: "{{ .Values.deployment.containerPort }}"
   labels:
     {{- include "noths-service-std.labels" . | nindent 4 }}
     app: {{ template "noths-service-std.name" . }}
