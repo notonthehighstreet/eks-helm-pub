@@ -16,6 +16,10 @@ image:
 
 deployment:
   containerPort: 8080
+  # Applications with mTLS enabled need to listen on a diffrent port for health checks. These are
+  # not routed via the app mesh enabling the kubelet to access them over HTTP.
+  # portPort MUST NOT expose the full application interface (it should not be duplicate of 8080)
+  # probePort: 8081
   dnsDomain: "" # e.g svc.cluster.local
   env: # Environmet variables please provide as a key / value map
   secrets: {}  # Secret Variables (pumped to kube secrets) Please provides as a key / value map

@@ -26,6 +26,8 @@ spec:
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
+        # Only configured AppMesh on the defined container port
+        appmesh.k8s.aws/port:{{ .Values.deployment.containerPort }}
       {{- end }}
       labels:
         {{- include "noths-service-std.selectorLabels" . | nindent 8 }}
@@ -53,6 +55,12 @@ spec:
               containerPort: {{ .Values.deployment.containerPort }}
               protocol: TCP
           {{- if .Values.deployment.enableProbes }}
+            # HealthChecks may optionally be listening on different port that is not behind the AppMesh and mTLS
+            # But this port should not expose the full application interface
+            {{- if .Values.deployment.probePort }}
+            - name: health
+              containerPort: {{ .Values.deployment.probePort | default .Values.deployment.containerPort }}
+              protocol: TCP
           livenessProbe:
             {{- toYaml .Values.deployment.livenessProbe | nindent 12 }}
           readinessProbe:
@@ -71,7 +79,7 @@ spec:
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "noths-service-std.name" $rootPath }}-{{ $secretName | lower | replace "_" "-" }}
+                  name: {{ template "noths-service-std.name" $rootPath }}-{{ $secretName | lower }}
                   key: {{ $key }}
             {{- end }}
             {{- end }}
