@@ -27,7 +27,7 @@ spec:
       annotations:
         {{- toYaml . | nindent 8 }}
         # Only configured AppMesh on the defined container port
-        appmesh.k8s.aws/port:{{ .Values.deployment.containerPort }}
+        appmesh.k8s.aws/port: "{{ .Values.deployment.containerPort }}""
       {{- end }}
       labels:
         {{- include "noths-service-std.selectorLabels" . | nindent 8 }}
