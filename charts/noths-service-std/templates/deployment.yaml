@@ -61,6 +61,7 @@ spec:
             - name: health
               containerPort: {{ .Values.deployment.probePort | default .Values.deployment.containerPort }}
               protocol: TCP
+            {{ end }}
           livenessProbe:
             {{- toYaml .Values.deployment.livenessProbe | nindent 12 }}
           readinessProbe:
