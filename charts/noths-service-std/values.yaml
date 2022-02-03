@@ -37,21 +37,24 @@ appMesh:
   gateway:
     api:
       route:
-        name: # The name of the appmesh api gateway
+        name: # The name of the Virtual Route
+        gatewayName: # The name of the appmesh api gateway
         namespace: ""
         create: false
         port: 8088
         prefix: "/"
     www:
       route:
-        name: # The name of the appmesh www gateway
+        name: # The name of the Virtual Route
+        gatewayName: # The name of the appmesh www gateway
         namespace: ""
         create: true
         port: 8088
         prefix: "/"
     private:
       route:
-        name: # The name of the appmesh private gateway
+        name: # The name of the Virtual Route
+        gatewayName: # The name of the appmesh private gateway
         namespace: ""
         create: false
         port: 8088

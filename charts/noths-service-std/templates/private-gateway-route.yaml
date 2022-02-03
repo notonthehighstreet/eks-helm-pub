@@ -4,6 +4,8 @@ kind: GatewayRoute
 metadata:
   name: {{ .Values.appMesh.gateway.private.route.name }}
   namespace: {{ .Values.appMesh.gateway.private.route.namespace }}
+  labels:
+    gateway: {{ .Values.appMesh.gateway.private.route.gatewayName }}
 spec:
   httpRoute:
     match:
