@@ -26,6 +26,9 @@ backend:
 
 appMesh:
   gateway:
+    # To have the VirtualGateway match VirtualRoutes in all namespaces set matchAllNamespaces: true
+    # https://aws.github.io/aws-app-mesh-controller-for-k8s/reference/vgw/#namespaceselector
+    matchAllNamespaces: false
     create: true
     name: # The name of the appmesh gateway
     port: 8088 # The port of the appmesh gateway

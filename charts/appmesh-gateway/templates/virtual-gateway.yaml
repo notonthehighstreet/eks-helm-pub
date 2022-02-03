@@ -5,9 +5,13 @@ metadata:
   name: {{ .Values.appMesh.gateway.name }}
 spec:
   awsName: {{ .Values.appMesh.gateway.name }}
+  {{- if .Values.appMesh.gateway.matchAllNamespaces }}
+  namespaceSelector: {}
+  {{- else }}
   namespaceSelector:
     matchLabels:
       gateway: {{ .Values.appMesh.gateway.name }}
+  {{- end }}
   podSelector:
     matchLabels:
       app: {{ .Values.appMesh.gateway.name }}
