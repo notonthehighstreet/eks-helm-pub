@@ -12,6 +12,9 @@ spec:
     matchLabels:
       gateway: {{ .Values.appMesh.gateway.name }}
   {{- end }}
+  gatewayRouteSelector:
+    matchLabels:
+      gateway: {{ .Values.appMesh.gateway.name }}
   podSelector:
     matchLabels:
       app: {{ .Values.appMesh.gateway.name }}
