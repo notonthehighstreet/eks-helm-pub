@@ -43,13 +43,23 @@ appMesh:
     arn: # The ARN of an existing mesh set external to true above
     accountID: # If external provide an external accountID
   service:
-    port: 80
+    ports:
+      - port: 80
+        targetPort: 8088 # The port of the appmesh gateway
+        name: http
+     # Also see  aws-load-balancer-ssl-* annotations belows:
+     #- port: 443
+     #  targetPort: 8088 # The port of the appmesh gateway
+     #  name: https
     type: LoadBalancer  # Choices: ClusterIP / NodePort / LoadBalancer / ExternalName. More info below
     # https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types
     externalTrafficPolicy: Cluster  # Choices: Cluster / Local. More info below
     # https://kubernetes.io/docs/concepts/services-networking/service/#external-traffic-policy
     annotations: {}
       # service.beta.kubernetes.io/aws-load-balancer-type: nlb # To enable nlb
+      # To enable TLS listener on port 443
+      # service.beta.kubernetes.io/aws-load-balancer-ssl-cert: cert-arn
++     # service.beta.kubernetes.io/aws-load-balancer-ssl-ports: 443
 
   healthCheck:
     healthyThreshold: 2

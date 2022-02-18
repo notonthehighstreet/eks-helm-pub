@@ -14,9 +14,11 @@ spec:
   type: {{ .Values.appMesh.service.type }}
   externalTrafficPolicy: {{ .Values.appMesh.service.externalTrafficPolicy }}
   ports:
-    - port: {{ .Values.appMesh.service.port }}
-      targetPort: {{ .Values.appMesh.gateway.port }}
-      name: {{ .Values.appMesh.gateway.proto }}
+    {{- range $port := .Values.appMesh.service.ports }}
+    - port: {{ $port.port }}
+      targetPort: {{ $.Values.appMesh.gateway.port }}
+      name: {{ $port.name }}
+    {{- end }}
   selector:
     app: {{ .Values.appMesh.gateway.name }}
 {{- end -}}
