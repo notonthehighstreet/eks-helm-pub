@@ -205,6 +205,16 @@ entries:
   appmesh-gateway:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2022-02-18T15:55:54.115393014Z"
+    description: Appmesh Gateway Helm Deployment
+    digest: ddd4a857c5b1a1cc0499aa737b29a7b04892a376d69a5f1e3c3a23c6bd8bd5a0
+    name: appmesh-gateway
+    type: application
+    urls:
+    - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/appmesh-gateway-2.0.0/appmesh-gateway-2.0.0.tgz
+    version: 2.0.0
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2022-02-04T08:23:24.720586056Z"
     description: Appmesh Gateway Helm Deployment
     digest: 5d4cdad3a4fa87cd2b5b2b2b4368cec7a8f181888d4af52b4f7d88309a51ffab
@@ -759,4 +769,4 @@ entries:
     urls:
     - https://github.com/notonthehighstreet/eks-helm-pub/releases/download/noths-service-std-0.0.1/noths-service-std-0.0.1.tgz
     version: 0.0.1
-generated: "2022-02-04T08:23:24.72085308Z"
+generated: "2022-02-18T15:55:54.115894118Z"
